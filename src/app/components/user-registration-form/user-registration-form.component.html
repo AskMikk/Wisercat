@@ -1,7 +1,7 @@
 <div class="centered-container">
   <div class="form-and-message">
     <div class="message-container">
-      <app-ui-message [ngStyle]="{'visibility': showMessage ? 'visible' : 'hidden'}" [text]="formMessage" [type]="messageType"></app-ui-message>
+      <app-ui-message [ngStyle]="{'visibility': getMessageData().visible ? 'visible' : 'hidden'}" [text]="getMessageData().message" [type]="getMessageData().type"></app-ui-message>
     </div>
     <mat-card>
       <div class="form-container">
@@ -43,8 +43,8 @@
               Please enter a valid number. Only one digit after the decimal is allowed.
             </mat-error>
           </mat-form-field>
-          <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Submit</button>
-          <button mat-button type="button" (click)="resetForm()">Reset</button>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+          <button mat-button type="reset" (click)="resetForm()">Reset</button>
         </form>
       </div>
     </mat-card>
