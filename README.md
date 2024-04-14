@@ -1,27 +1,30 @@
-# AngularFormWork
+# Setup
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
+Clone the repo and install dependencies:
+```
+git clone https://github.com/AskMikk/angular-form-work
+cd angular-form-work
+npm install
+ng serve
+```
+Visit `http://localhost:4200/` in your browser after the server starts.
 
-## Development server
+# Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular 17 reactive forms with validation.
+- Material design components.
+- Dynamic validation messages.
 
-## Code scaffolding
+# Components
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- `UiMessageComponent`: Displays messages.
+- `UserRegistrationFormComponent`: Manages registration form.
 
-## Build
+# Services
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `MessageService`: Manages message display.
+- `ValidationService`: Performs form validation.
 
-## Running unit tests
+# Dependencies
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Ensure all dependencies are correctly installed by checking the `node_modules` folder after running `npm install`. If there are issues, delete the `node_modules` folder and the `package-lock.json` file and run `npm install` again.
