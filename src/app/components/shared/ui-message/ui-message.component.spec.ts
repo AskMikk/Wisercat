@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UiMessageComponent } from './ui-message.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UiMessageComponent', () => {
   let component: UiMessageComponent;
@@ -8,10 +8,13 @@ describe('UiMessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiMessageComponent]
+      imports: [
+        UiMessageComponent,
+        BrowserAnimationsModule
+      ],
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(UiMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -19,5 +22,49 @@ describe('UiMessageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have default input values', () => {
+    expect(component.text).toBe('');
+    expect(component.type).toBe('info');
+  });
+
+  it('should not display message when text is empty', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.message')).toBeNull();
+  });
+
+  it('should display message and apply correct type class when text is set', () => {
+    component.text = 'Test message';
+    component.type = 'error';
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const messageDiv = compiled.querySelector('.message');
+    expect(messageDiv.textContent).toContain('Test message');
+    expect(messageDiv.classList.contains('error')).toBeTrue();
+  });
+
+  it('should apply different classes based on type', () => {
+    component.text = 'Visible message';
+    component.type = 'success';
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const messageDiv = compiled.querySelector('.message');
+    expect(messageDiv.classList.contains('success')).toBeTrue();
+    expect(messageDiv.classList.contains('error')).toBeFalse();
+  });
+
+  it('should toggle visibility based on some internal logic', () => {
+    component.text = '';
+    fixture.detectChanges();
+    let compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.message')).toBeNull();
+
+    component.text = 'Now visible';
+    fixture.detectChanges();
+    compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.message')).not.toBeNull();
   });
 });
