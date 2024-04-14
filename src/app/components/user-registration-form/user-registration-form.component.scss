@@ -6,6 +6,7 @@
 }
 
 .form-and-message {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,10 +35,18 @@ button {
 }
 
 .message-container {
-    width: 50%;
+    position: absolute;
+    top: -60px;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    margin-top: 20px; 
+    justify-content: center;
+    align-items: center;
     min-height: 50px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+.message-visible {
+    opacity: 1;
+    pointer-events: auto;
 }
