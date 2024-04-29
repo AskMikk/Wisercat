@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { MessageType } from '../../../models/message-types.interface';
 
 @Component({
   selector: 'app-ui-message',
@@ -9,6 +10,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './ui-message.component.scss'
 })
 export class UiMessageComponent {
-  @Input() text: string = '';
-  @Input() type: 'info' | 'error' | 'success' = 'info';
+  @Input() text = '';
+  @Input() type: MessageType = 'info';
 }

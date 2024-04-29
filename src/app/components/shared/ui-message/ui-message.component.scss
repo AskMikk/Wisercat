@@ -1,14 +1,12 @@
 .message {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    color: white;
-    transition: opacity 2s ease-in-out;
-    opacity: 1;
-    text-align: center;
-  }
-  
-  .info { background-color: #2196f3; }
-  .error { background-color: #e53935; }
-  .success { background-color: #4caf50; }
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 15px;
+  padding: 10px;
+  text-align: center;
+}
+ 
+.info { background-color: #2196f3; }
+.error { background-color: #e53935; }
+.success { background-color: #4caf50; }
   
