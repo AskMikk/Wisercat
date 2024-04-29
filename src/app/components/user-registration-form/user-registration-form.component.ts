@@ -42,24 +42,44 @@ export class UserRegistrationFormComponent implements OnInit {
 
   configureFormFields(): void {
     this.formFields = [
-      { label: 'Name', controlName: 'name', type: 'text', errors: [{ type: 'required', message: 'Name is required.' }] },
-      { label: 'Surname', controlName: 'surname', type: 'text', errors: [{ type: 'required', message: 'Surname is required.' }] },
-      { label: 'Email', controlName: 'email', type: 'email', errors: [
-          { type: 'required', message: 'Email is required.' },
-          { type: 'email', message: 'Please enter a valid email address.' }
+      { label: 'Name', controlName: 'name', type: 'text' },
+      { label: 'Surname', controlName: 'surname', type: 'text' },
+      {
+        label: 'Email', controlName: 'email', type: 'email', errors: [
+          { type: 'email' }
         ]
       },
-      { label: 'Working Experience', controlName: 'workingExperience', type: 'text', errors: [
-          { type: 'required', message: 'Working experience is required.' },
-          { type: 'invalidNumber', message: 'Please enter a valid number. Only one digit after the decimal is allowed.' }
+      {
+        label: 'Working Experience', controlName: 'workingExperience', type: 'text', errors: [
+          { type: 'invalidNumber' }
         ]
       }
     ];
   }
-
+  
+  getErrorMessage(controlName: string): string | null {
+    const control = this.userForm.get(controlName);
+    const field = this.formFields.find(f => f.controlName === controlName);
+    const label = field ? field.label : controlName;
+  
+    if (control && control.errors) {
+      if (control.hasError('required')) {
+        return `${label} is required.`;
+      }
+      if (control.hasError('email')) {
+        return 'Please enter a valid email address.';
+      }
+      if (control.hasError('invalidNumber')) {
+        return 'Please enter a valid number. Only one digit after the decimal is allowed.';
+      }
+    }
+    return null;
+  }
+  
   submitForm(): void {
     if (this.userForm.valid) {
       this.messageService.showFormMessage('Form is successfully submitted.', 'success');
+      this.resetForm(); 
     } else {
       this.messageService.showFormMessage('Form is not valid.', 'error');
       this.validationService.validateAllFormFields(this.userForm);

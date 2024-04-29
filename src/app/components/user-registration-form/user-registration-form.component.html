@@ -5,19 +5,19 @@
     </div>
     <mat-card>
       <div class="form-container">
-        <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+        <form [formGroup]="userForm" >
           <ng-container *ngFor="let field of formFields">
             <mat-form-field appearance="fill" class="form-field">
               <mat-label>{{ field.label }}</mat-label>
-              <input matInput [id]="field.controlName" [type]="field.type || 'text'" [formControlName]="field.controlName" (focus)="onFieldFocus(field.controlName)">
-              <mat-error *ngFor="let error of field.errors">
-                <ng-container *ngIf="userForm.get(field.controlName)?.hasError(error.type) && userForm.get(field.controlName)?.touched">
-                  {{ error.message }}
-                </ng-container>
+              <input matInput [id]="field.controlName" [type]="field.type || 'text'"
+                     [formControlName]="field.controlName"
+                     (focus)="onFieldFocus(field.controlName)">
+              <mat-error *ngIf="userForm.get(field.controlName)?.errors">
+                {{ getErrorMessage(field.controlName) }}
               </mat-error>
             </mat-form-field>
           </ng-container>
-          <button mat-raised-button color="primary" type="submit">Submit</button>
+          <button mat-raised-button color="primary" type="button" (click)="submitForm()">Submit</button>
           <button mat-button type="reset" (click)="resetForm()">Reset</button>
         </form>
       </div>
