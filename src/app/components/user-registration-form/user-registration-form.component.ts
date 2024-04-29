@@ -18,6 +18,7 @@ import { MessageService } from '../../services/MessageService';
 })
 export class UserRegistrationFormComponent implements OnInit {
   userForm!: FormGroup;
+  formFields!: any[];
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +28,7 @@ export class UserRegistrationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.configureFormFields();
   }
 
   initForm(): void {
@@ -36,6 +38,23 @@ export class UserRegistrationFormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       workingExperience: ['', [Validators.required, customNumberValidator(1)]]
     });
+  }
+
+  configureFormFields(): void {
+    this.formFields = [
+      { label: 'Name', controlName: 'name', type: 'text', errors: [{ type: 'required', message: 'Name is required.' }] },
+      { label: 'Surname', controlName: 'surname', type: 'text', errors: [{ type: 'required', message: 'Surname is required.' }] },
+      { label: 'Email', controlName: 'email', type: 'email', errors: [
+          { type: 'required', message: 'Email is required.' },
+          { type: 'email', message: 'Please enter a valid email address.' }
+        ]
+      },
+      { label: 'Working Experience', controlName: 'workingExperience', type: 'text', errors: [
+          { type: 'required', message: 'Working experience is required.' },
+          { type: 'invalidNumber', message: 'Please enter a valid number. Only one digit after the decimal is allowed.' }
+        ]
+      }
+    ];
   }
 
   submitForm(): void {

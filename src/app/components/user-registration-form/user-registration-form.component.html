@@ -6,43 +6,17 @@
     <mat-card>
       <div class="form-container">
         <form [formGroup]="userForm" (ngSubmit)="submitForm()">
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Name</mat-label>
-            <input matInput id="name" formControlName="name" (focus)="onFieldFocus('name')">
-            <mat-error *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
-              Name is required.
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Surname</mat-label>
-            <input matInput id="surname" formControlName="surname" (focus)="onFieldFocus('surname')">
-            <mat-error *ngIf="userForm.get('surname')?.invalid && userForm.get('surname')?.touched">
-              Surname is required.
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Email</mat-label>
-            <input matInput id="email" type="email" formControlName="email" (focus)="onFieldFocus('email')">
-            <mat-error *ngIf="userForm.get('email')?.errors?.['required'] && userForm.get('email')?.touched">
-              Email is required.
-            </mat-error>
-            <mat-error *ngIf="userForm.get('email')?.errors?.['email'] && userForm.get('email')?.touched">
-              Please enter a valid email address.
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Working Experience</mat-label>
-            <input matInput id="workingExperience" formControlName="workingExperience" (focus)="onFieldFocus('workingExperience')">
-            <mat-error *ngIf="userForm.get('workingExperience')?.errors?.['required'] && userForm.get('workingExperience')?.touched">
-              Working experience is required.
-            </mat-error>
-            <mat-error *ngIf="userForm.get('workingExperience')?.errors?.['invalidNumber'] && userForm.get('workingExperience')?.touched && !userForm.get('workingExperience')?.errors?.['required']">
-              Please enter a valid number. Only one digit after the decimal is allowed.
-            </mat-error>
-          </mat-form-field>          
+          <ng-container *ngFor="let field of formFields">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>{{ field.label }}</mat-label>
+              <input matInput [id]="field.controlName" [type]="field.type || 'text'" [formControlName]="field.controlName" (focus)="onFieldFocus(field.controlName)">
+              <mat-error *ngFor="let error of field.errors">
+                <ng-container *ngIf="userForm.get(field.controlName)?.hasError(error.type) && userForm.get(field.controlName)?.touched">
+                  {{ error.message }}
+                </ng-container>
+              </mat-error>
+            </mat-form-field>
+          </ng-container>
           <button mat-raised-button color="primary" type="submit">Submit</button>
           <button mat-button type="reset" (click)="resetForm()">Reset</button>
         </form>

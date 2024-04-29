@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MessageType } from '../models/message-types.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -6,10 +7,10 @@ import { Injectable } from '@angular/core';
 export class MessageService {
   private showMessage: boolean = false;
   private formMessage: string = '';
-  private messageType: 'info' | 'error' | 'success' = 'info';
+  private messageType: MessageType = 'info';
   private timeoutRef: any = null;
 
-  showFormMessage(message: string, messageType: 'info' | 'error' | 'success'): void {
+  public showFormMessage(message: string, messageType: MessageType): void {
     clearTimeout(this.timeoutRef);
     this.formMessage = message;
     this.messageType = messageType;
@@ -21,7 +22,7 @@ export class MessageService {
     this.showMessage = false;
   }
 
-  public getMessage(): { message: string; type: 'info' | 'error' | 'success'; visible: boolean } {
+  public getMessage(): { message: string; type: MessageType; visible: boolean } {
     return { message: this.formMessage, type: this.messageType, visible: this.showMessage };
   }
 }
