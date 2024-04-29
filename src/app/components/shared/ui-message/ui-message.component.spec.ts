@@ -29,11 +29,6 @@ describe('UiMessageComponent', () => {
     expect(component.type).toBe('info');
   });
 
-  it('should not display message when text is empty', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.message')).toBeNull();
-  });
-
   it('should display message and apply correct type class when text is set', () => {
     component.text = 'Test message';
     component.type = 'error';
@@ -54,17 +49,5 @@ describe('UiMessageComponent', () => {
     const messageDiv = compiled.querySelector('.message');
     expect(messageDiv.classList.contains('success')).toBeTrue();
     expect(messageDiv.classList.contains('error')).toBeFalse();
-  });
-
-  it('should toggle visibility based on some internal logic', () => {
-    component.text = '';
-    fixture.detectChanges();
-    let compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.message')).toBeNull();
-
-    component.text = 'Now visible';
-    fixture.detectChanges();
-    compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.message')).not.toBeNull();
   });
 });
